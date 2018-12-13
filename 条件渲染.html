@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>条件渲染</title>
+	<script type="text/javascript" src="../vueJS/vue.js"></script>
+</head>
+<body>
+	<div id="box">
+		<p v-if = "ifshow">
+			ifshow为true时显示
+		</p>
+		<p v-else>
+			ifshow为false时显示
+		</p>
+
+
+		<template v-if = "ifshow"><!-- template不会改变结构 -->
+		<div>集合管理v-if且不破坏结构</div>
+		<div>集合管理v-if且不破坏结构</div>
+		<div>集合管理v-if且不破坏结构</div>
+		<div>集合管理v-if且不破坏结构</div>
+		</template>
+
+		<p v-show = 'ifshow'>
+			动态的隐藏和显示，会创建属性，不支持template
+		</p>
+	</div>
+	<script>
+		var vm = new Vue({
+			el:"#box",
+
+			data:{
+				ifshow:true
+		})
+	</script>
+</body>
+</html>
