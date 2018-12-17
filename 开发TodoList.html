@@ -11,7 +11,10 @@
 		<button @click="btnSub">提交</button>
 		<ul>
 			<!-- <li v-for="item in list">{{item}}</li> -->
-			<todo-item v-bind:content="item" v-for="item in list">
+			<todo-item :content="item" 
+						:index="index"
+						v-for="(item,index) in list"
+						 @delete="handleItemDelete">
 				
 			</todo-item>
 		</ul>
@@ -22,8 +25,13 @@
 			template:"<li>{{content}}</li>"
 			})用全局组件开发*/
 		var TodoItem = {
-			props:["content"],
-			template:"<li>{{content}}</li>"//局部组件开发
+			props:["content",'index'],
+			template:"<li @click='btnSub' >{{content}}</li>",//局部组件开发
+			methods:{
+				btnSub:function(){
+					this.$emit("delete",this.index);
+				}
+			}
 		}
 		var vm = new Vue({
 
@@ -42,6 +50,9 @@
 				btnSub:function(){
 					this.list.push(this.inputValue),
 					this.inputValue = ""
+				},
+				handleItemDelete:function(index) {
+					this.list.splice(index,1)
 				}
 			}
 		})
